@@ -109,7 +109,7 @@ export function ThirdScrollAnimation() {
 
   return (
     <section ref={containerRef} className="relative w-full bg-black z-30 mb-0 pb-0 h-[300vh]">
-      <div className="sticky top-0 h-screen w-full overflow-hidden bg-black flex items-center justify-center">
+      <div className="sticky top-0 h-[100svh] w-full overflow-hidden bg-black flex items-center justify-center">
         
         {/* 
           Using canvas for instant hardware-accelerated frame updates without image decode lag (blurriness).
@@ -117,8 +117,8 @@ export function ThirdScrollAnimation() {
         */}
         <canvas 
           ref={canvasRef}
-          className="absolute inset-0 w-full h-full object-contain"
-          style={{ objectPosition: 'center top' }}
+          className="absolute inset-0 w-full h-[100svh] object-cover md:object-contain"
+          style={{ objectPosition: 'center center' }}
         />
           
         {/* Animated Text Overlay */}

@@ -80,7 +80,7 @@ export default function App() {
       {/* 1. HEADER NAVIGATION */}
       <header className="w-full px-6 md:px-12 py-6 md:py-8 flex items-center relative z-30">
         {/* Navigation Links */}
-        <nav className="flex items-center gap-6 md:gap-10">
+        <nav className="flex items-center gap-4 md:gap-10">
           <button
             onClick={() => window.location.reload()}
             className="text-xs md:text-sm tracking-wider uppercase transition-all duration-300 cursor-pointer relative py-2 text-white hover:text-white"
@@ -94,7 +94,7 @@ export default function App() {
             About
           </button>
           <button
-            className="text-xs md:text-sm tracking-wider uppercase transition-all duration-300 cursor-pointer relative py-2 text-neutral-500 hover:text-neutral-300"
+            className="hidden sm:block text-xs md:text-sm tracking-wider uppercase transition-all duration-300 cursor-pointer relative py-2 text-neutral-500 hover:text-neutral-300"
           >
             Services
           </button>

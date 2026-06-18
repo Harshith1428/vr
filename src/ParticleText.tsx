@@ -66,9 +66,8 @@ export const ParticleText: React.FC = () => {
       
       const particlesArray: Particle[] = [];
       
-      // Prevent extreme step sizes that crash the browser
-      // Guarantee a minimum step of 4 physical pixels
-      const step = Math.max(4, Math.floor((width * dpr) / 400));
+      // Guarantee a tighter step for high density, but protect from crashing
+      const step = Math.max(2, Math.floor((width * dpr) / 800));
       
       for (let y = 0, y2 = textCoordinates.height; y < y2; y += step) {
         for (let x = 0, x2 = textCoordinates.width; x < x2; x += step) {
@@ -77,15 +76,22 @@ export const ParticleText: React.FC = () => {
             const logicalX = x / dpr;
             const logicalY = y / dpr;
             
+            // Add sub-pixel jitter to completely destroy any visible "grid/matrix" pattern
+            const jitterX = (Math.random() - 0.5) * 1.5;
+            const jitterY = (Math.random() - 0.5) * 1.5;
+            
+            const finalX = logicalX + jitterX;
+            const finalY = logicalY + jitterY;
+            
             particlesArray.push({
-              // Start particles off-screen to the right
-              x: (width / dpr) + Math.random() * 500 + 100, 
-              y: logicalY + (Math.random() - 0.5) * 100, // Slight vertical scatter
-              baseX: logicalX,
-              baseY: logicalY,
+              // Start particles at their assembled positions
+              x: finalX,
+              y: finalY,
+              baseX: finalX,
+              baseY: finalY,
               vx: 0,
               vy: 0,
-              size: Math.random() * 0.4 + 0.8, // 0.8 to 1.2px radius (approx 1.5 - 2.5px diameter)
+              size: Math.random() * 0.5 + 0.9, // 0.9 to 1.4px radius (ensure overlapping to look solid)
               color: '#ffffff', // Strictly white
               isScattered: false
             });
@@ -171,19 +177,10 @@ export const ParticleText: React.FC = () => {
       mouseRef.current.x = -1000;
       mouseRef.current.y = -1000;
       
-      // When mouse leaves, any particles that were scattered should
-      // teleport back to the right side to assemble again.
-      const dpr = window.devicePixelRatio || 1;
-      const logicalWidth = width / dpr;
-      
+      // When mouse leaves, particles naturally spring back to their baseX/baseY
+      // because of the spring physics in the animation loop. We just reset the flag.
       particlesRef.current.forEach(p => {
-        if (p.isScattered) {
-          p.x = logicalWidth + Math.random() * 500 + 100;
-          p.y = p.baseY + (Math.random() - 0.5) * 100;
-          p.vx = 0;
-          p.vy = 0;
-          p.isScattered = false;
-        }
+        p.isScattered = false;
       });
     };
 
