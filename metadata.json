@@ -1,0 +1,6 @@
+{
+  "name": "NEONIX",
+  "description": "A minimal, clean, black-themed landing page featuring the NEONIX hero section styled with DM Sans typography.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
